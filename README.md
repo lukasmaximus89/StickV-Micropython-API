@@ -15,14 +15,18 @@ os.mkdir() creat a new directory
 
 ## Clear LCD
 import lcd
-lcd.clear() //default is black, hex values can be entered to fill the screen with a different color
+
+lcd.clear(0xffffff) //default is black, hex values can be entered to fill the screen with a different color
 
 ## Display Text 
-//enter x and y coordinate followed by string/variable and predefined color constant or hex value
-lcd.draw_string(x,y,”text”,lcd.WHITE)
+//enter x and y coordinate followed by string/variable and 2 predefined color constant or hex values, 
+1 for text color and one for text background color
+
+lcd.draw_string(x,y,”text”,lcd.WHITE, lcd.RED)
 
 ## Display Image
 import image, lcd
+
 img = image.Image("/sd/startup.jpg")
 lcd.display(img)
 
@@ -39,9 +43,20 @@ but_b = GPIO(GPIO.GPIO2, GPIO.IN, GPIO.PULL_UP)
 
 ## Initialise RGB-LED
 
+from fpioa_manager import *
+from Maix import *
+
 **-BLUE-**
 fm.register(board_info.LED_B, fm.fpioa.GPIOHS8)
 ledB = GPIO(GPIO.GPIOHS8, GPIO.OUT) 
+
+## I2C
+
+from machine import I2C
+
+i2c = I2C(I2C.I2C0, freq=100000, scl=28, sda=29)
+devices = i2c.scan()
+print(devices)
 
 ## Live stream:
 import sensor
