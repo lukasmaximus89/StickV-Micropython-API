@@ -13,22 +13,54 @@ os.chdir() change current working director
 
 os.mkdir() creat a new directory
 
-## Clear LCD
+## LCD
+
+**Clear LCD**
+
 import lcd
 
 lcd.clear(0xffffff) //default is black, hex values can be entered to fill the screen with a different color
 
-## Display Text 
+**Display Text** 
 //enter x and y coordinate followed by string/variable and 2 predefined color constant or hex values, 
 1 for text color and one for text background color
 
 lcd.draw_string(x,y,”text”,lcd.WHITE, lcd.RED)
 
-## Display Image
+**Display Image**
 import image, lcd
 
 img = image.Image("/sd/startup.jpg")
 lcd.display(img)
+
+**Draw Rectangle**
+import image, lcd, sensor
+
+img = sensor.snapshot()
+disp_img = img.copy()
+
+// enter x, y ,width, height, color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_rectangle(100, 150, 15, 15, lcd.WHITE, thickness = 1)
+
+**Draw Circle**
+// enter x, y , radius, color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_circle(80, 150, 15, color = (255,0,0), thickness = 1)
+
+**Draw Ellipse**
+// enter x, y ,width, height, color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_ellipse(80, 150, 15, 20, color = (255,0,0), thickness = 1)
+
+**Draw Line**
+//enter origin and ending points  x1, y1 ,x2, y2, color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_line(50,50,200,100, 0xffffff, thickness = 5)
+
+**Draw Arrow**
+//enter origin and ending points  x1, y1 ,x2, y2, color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_arrow(50,50,200,100, 0x00ffff, thickness = 5)
+
+**Draw Cross**
+//enter x, y , color (color = (255,255,255) or (lcd.WHITE) or (0xffffff)), thickness = 1
+disp_img.draw_cross(80, 150, color = (255,0,0), thickness = 5)
 
 ## Initialise button
 
@@ -46,9 +78,15 @@ but_b = GPIO(GPIO.GPIO2, GPIO.IN, GPIO.PULL_UP)
 from fpioa_manager import *
 from Maix import *
 
+**-White-**
+fm.register(board_info.LED_W, fm.fpioa.GPIO7)
+ledW = GPIO(GPIO.GPIO7, GPIO.OUT) 
+ledW.value(1)
+
 **-BLUE-**
 fm.register(board_info.LED_B, fm.fpioa.GPIOHS8)
 ledB = GPIO(GPIO.GPIOHS8, GPIO.OUT) 
+ledB.value(1)
 
 ## I2C
 
