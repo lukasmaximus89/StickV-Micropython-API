@@ -88,6 +88,23 @@ fm.register(board_info.LED_B, fm.fpioa.GPIOHS8)
 ledB = GPIO(GPIO.GPIOHS8, GPIO.OUT) 
 ledB.value(1)
 
+**-UnitV LED-**
+
+The RGB LED of UnitV is on gpio8
+
+a = class_ws2812 = ws2812(8,1)
+
+def RGB_LED():
+    a = class_ws2812.set_led(0,(0,0,255)) //enter RGB values here
+    a = class_ws2812.display()
+    time.sleep(0.5)
+    a = class_ws2812.set_led(0,(0,0,0))
+    a = class_ws2812.display()
+
+while(True):
+    RGB_LED()
+
+
 ## I2C
 
 from machine import I2C
